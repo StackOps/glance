@@ -1,0 +1,3 @@
+sql_conn.patch
+disable-swift-tests.patch
+disable-network-for-docs.patch

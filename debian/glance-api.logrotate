@@ -1,0 +1,7 @@
+/var/log/glance/api.log {
+    daily
+    missingok
+    compress
+    delaycompress
+    notifempty
+}
