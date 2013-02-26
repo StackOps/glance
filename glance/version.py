@@ -15,8 +15,32 @@
 #    under the License.
 
 
-from glance.openstack.common import version as common_version
+#from glance.openstack.common import version as common_version
+#
+#NEXT_VERSION = '2012.2.4'
+#version_info = common_version.VersionInfo('glance',
+#                                          pre_version=NEXT_VERSION)
 
-NEXT_VERSION = '2012.2.4'
-version_info = common_version.VersionInfo('glance',
-                                          pre_version=NEXT_VERSION)
+GLANCE_VERSION = ['2012', '2', '4']
+YEAR, COUNT, REVISION = GLANCE_VERSION
+FINAL = False   # This becomes true at Release Candidate time
+
+
+def canonical_version_string():
+    return '.'.join(filter(None, GLANCE_VERSION))
+
+
+def version_string():
+    if FINAL:
+        return canonical_version_string()
+    else:
+        return '%s-dev' % (canonical_version_string(),)
+
+
+def vcs_version_string():
+    return 'LOCALBRANCH:LOCALREVISION'
+
+
+def version_string_with_vcs():
+    return '%s-%s' % (canonical_version_string(), vcs_version_string())
+
