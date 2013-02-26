@@ -44,3 +44,4 @@ def vcs_version_string():
 def version_string_with_vcs():
     return '%s-%s' % (canonical_version_string(), vcs_version_string())
 
+version_info = version_string()
