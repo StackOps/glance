@@ -1,0 +1,151 @@
+Source: glance
+Section: net
+Priority: extra
+Maintainer: Ubuntu OpenStack <openstack-packaging@lists.ubuntu.com>
+Build-Depends:
+ debhelper (>= 7.0.50),
+ python-all (>= 2.6),
+ sqlite3
+Build-Depends-Indep:
+ curl,
+ pep8,
+ python-boto,
+ python-crypto,
+ python-eventlet,
+ python-fixtures,
+ python-httplib2 (>= 0.6.0),
+ python-iso8601,
+ python-anyjson,
+ python-jsonschema,
+ python-keystoneclient,
+ python-kombu,
+ python-lxml,
+ python-migrate,
+ python-mox,
+ python-nose,
+ python-oslo-config,
+ python-paste,
+ python-pastedeploy,
+ python-passlib,
+ python-requests,
+ python-routes,
+ python-setuptools,
+ python-sphinx,
+ python-sqlalchemy-ext | python-sqlalchemy (<< 0.6.3-2),
+ python-swiftclient,
+ python-testtools,
+ python-webob,
+ python-xattr
+Standards-Version: 3.9.3
+XS-Python-Version: >= 2.6
+Homepage: http://launchpad.net/glance
+
+Package: python-glance
+Architecture: all
+Section: python
+Depends:
+ python-argparse,
+ python-crypto,
+ python-dateutil,
+ python-eventlet,
+ python-httplib2,
+ python-iso8601,
+ python-jsonschema,
+ python-keystone,
+ python-kombu,
+ python-migrate,
+ python-oslo-config,
+ python-pastedeploy,
+ python-requests,
+ python-routes,
+ python-setuptools,
+ python-sqlalchemy-ext | python-sqlalchemy (<< 0.6.3-2),
+ python-swiftclient,
+ python-webob,
+ python-xattr,
+ ${misc:Depends},
+ ${python:Depends}
+Provides: ${python:Provides}
+XB-Python-Version: ${python:Versions}
+Description: OpenStack Image Registry and Delivery Service - Python library
+ The Glance project provides an image registration and discovery service
+ and an image delivery service. These services are used
+ in conjunction by Nova to deliver images from object stores, such as
+ OpenStack's Swift service, to Nova's compute nodes.
+ .
+ This package contains the Python libraries.
+
+Package: glance
+Architecture: all
+Section: python
+Depends:
+ glance-api (= ${source:Version}),
+ glance-registry (= ${source:Version}),
+ ${misc:Depends},
+ ${python:Depends}
+Suggests: python-ceph
+Description: OpenStack Image Registry and Delivery Service - Daemons
+ The Glance project provides an image registration and discovery service
+ and an image delivery service. These services are used
+ in conjunction by Nova to deliver images from object stores, such as
+ OpenStack's Swift service, to Nova's compute nodes.
+ .
+ This package is a metapackage for all glance daemons.
+
+Package: python-glance-doc
+Architecture: all
+Section: doc
+Depends: libjs-jquery, ${misc:Depends}
+Description: OpenStack Image Registry and Delivery Service - Documentation
+ The Glance project provides an image registration and discovery service
+ (Parallax) and an image delivery service (Teller). These services are used
+ in conjunction by Nova to deliver images from object stores, such as
+ OpenStack's Swift service, to Nova's compute nodes.
+ .
+ This package contains the documentation.
+
+Package: glance-common
+Architecture: all
+Section: python
+Depends:
+ adduser,
+ python-glance (= ${source:Version}),
+ ${misc:Depends},
+ ${python:Depends}
+Breaks: glance ( <= 2011.3-0ubuntu4.1 )
+Replaces: glance ( <= 2011.3-0ubuntu4.1  )
+Description: OpenStack Image Registry and Delivery Service - Common
+ The Glance project provides an image registration, discovery and
+ delivery service. These services may be used as stand-along services, and
+ they may also be used by Nova to deliver images from object stores, such as
+ OpenStack's Swift service, to Nova's compute nodes.
+ .
+ This package contains the glance common.
+
+Package: glance-api
+Architecture: all
+Section: python
+Replaces: glance (<< 2012.1~e1~20110919.1021-0ubuntu2)
+Depends: glance-common (= ${source:Version}), ${misc:Depends}, ${python:Depends}
+Recommends: python-glanceclient
+Description: OpenStack Image Registry and Delivery Service - API
+ The Glance project provides an image registration, discovery and
+ delivery service. These services may be used as stand-along services, and
+ they may also be used by Nova to deliver images from object stores, such as
+ OpenStack's Swift service, to Nova's compute nodes.
+ .
+ This package contains the glance API server.
+
+Package: glance-registry
+Architecture: all
+Section: python
+Replaces: glance (<< 2012.1~e1~20110919.1021-0ubuntu2)
+Depends: glance-common (= ${source:Version}), ${misc:Depends}, ${python:Depends}
+Recommends: python-glanceclient
+Description: OpenStack Image Registry and Delivery Service - Registry
+ The Glance project provides an image registration, discovery and
+ delivery service. These services may be used as stand-along services, and
+ they may also be used by Nova to deliver images from object stores, such as
+ OpenStack's Swift service, to Nova's compute nodes.
+ .
+ This package contains the glance registry server.

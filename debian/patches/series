@@ -1,0 +1,3 @@
+sql_conn.patch
+disable-network-for-docs.patch
+#fix-nosetests-path.patch

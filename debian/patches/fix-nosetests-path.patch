@@ -1,0 +1,9 @@
+diff -Naurp glance-2013.1.a21.g21cf2cf.orig/setup.cfg glance-2013.1.a21.g21cf2cf/setup.cfg
+--- glance-2013.1.a21.g21cf2cf.orig/setup.cfg	2013-01-22 17:36:13.000000000 -0600
++++ glance-2013.1.a21.g21cf2cf/setup.cfg	2013-01-23 10:00:01.049443858 -0600
+@@ -28,4 +28,5 @@ detailed-errors = 1
+ cover-package = glance
+ cover-html = true
+ cover-erase = true
++where = glance/tests
+ 

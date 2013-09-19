@@ -1,0 +1,42 @@
+#!/usr/bin/make -f
+
+# Verbose mode
+#export DH_VERBOSE=1
+
+DEBVERS ?= $(shell dpkg-parsechangelog | sed -n -e 's/^Version: //p')
+VERSION ?= $(shell echo '$(DEBVERS)' | sed -e 's/^[[:digit:]]*://' -e 's/[-].*//')
+export OSLO_PACKAGE_VERSION=$(VERSION)
+
+%:
+	dh $@ --with python2
+
+get-orig-source:
+	uscan --verbose --force-download --rename --destdir=../build-area
+
+override_dh_install:
+	dh_install --fail-missing
+
+ifeq (,$(findstring nocheck, $(DEB_BUILD_OPTIONS)))
+override_dh_auto_test:
+	# Scope tests to glance/tests otherwise we get a weird
+	# nose test failure about glance/openstack/common
+	PYTHONPATH=$(CURDIR) python setup.py test
+endif
+
+override_dh_auto_build:
+	dh_auto_build
+ifeq (,$(findstring nodocs, $(DEB_BUILD_OPTIONS)))
+	mkdir doc/build
+	python setup.py build_sphinx
+else
+	mkdir -p doc/build/html
+endif
+
+override_dh_auto_clean:
+	dh_auto_clean
+	rm -rf doc/build
+	rm -rf glance.sqlite
+
+override_dh_installinit:
+	dh_installinit --name glance-api
+	dh_installinit --name glance-registry
